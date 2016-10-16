@@ -1,0 +1,27 @@
+################################################################################
+# Simple backup script for Sisyphus.
+# This script takes backup of the working version of Sisyphus.
+# It keeps a three level backup: recent, less recent, least recent,
+# in files: backup.tgz, buckup.old.tgz, backup.older.tgz, respectively.
+#
+# These files are stored in the "backup" folder under Sisyphus sources.
+# In this folder I also store the different versions of the sources along with
+# the version info file.
+#
+# (C) Nikos Karayannidis 
+################################################################################
+
+mv backup/backup.old.tgz backup/backup.older.tgz
+mv backup/backup.tgz backup/backup.old.tgz
+tar -cvzf backup/backup.tgz ./*.{C,cpp,h,fld,dld} ./Makefile ./Makefile.Dependencies ./config ./exampleconfig ./NOTE_ABOUT_DEPENDENCIES ./sisyphus_TODO ../sisyphus.kdevprj  ./dobackup ./dbg_construction_I ./testSSM/test_pinning_records/testpin_project/testpin_project.kdevprj ./testSSM/test_pinning_records/testpin_project/testpin_project/*.C ./testSSM/test_pinning_records/testpin_project/testpin_project/*.h ./testSSM/test_pinning_records/testpin_project/testpin_project/Makefile ./testSSM/test_pinning_records/testpin_project/testpin_project/Makefile.Dependencies ./testSSM/*/*.{cpp,C,h,fld,dld} ./test_units/*/*.{cpp,C,h,fld,dld} 
+#./backup/version_info.txt ./backup/Sisyphus_v2.**/*.tgz
+#./perl_scripts/* 
+
+#cat sisyphus_TODO | mail -s SISYPHUS_TODO nikos
+#cp backup/backup.tgz /DOSC/fromLinux/
+
+### NOTE ###
+# To untar/unzip the produced files give:
+# tar -xzvPf {Sisyphus sources}/backup/backup.tgz
+###########
+

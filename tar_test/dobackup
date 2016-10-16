@@ -1,0 +1,7 @@
+mv backup/backup.old.tgz backup/backup.older.tgz
+mv backup/backup.tgz backup/backup.old.tgz
+tar -cvzf backup/backup.tgz ./*.C ./*.h ./Makefile ./Makefile.Dependencies ./config ./exampleconfig ./NOTE_ABOUT_DEPENDENCIES ./sisyphus_TODO ~/research/develop/sisyphus_v2.0/sisyphus/sisyphus.kdevprj ./dobackup ./*.dld ./*.fld ./dbg_construction_I
+
+#cat sisyphus_TODO | mail -s SISYPHUS_TODO nikos
+#cp backup/backup.tgz /DOSC/fromLinux/
+

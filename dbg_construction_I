@@ -1,0 +1,494 @@
+**************************************************
+*	    CHUNK TREE INFORMATION              *
+**************************************************
+
+
+CHUNK : root
+----------------------------------------
+	Depth = 1, NumOfDims = 3, totNumCells = 12, rlNumCells = 12, size(bytes) = 96
+	Location(Continent) : [0, 2]
+	Product(Category) : [0, 1]
+	Date(Year) : [0, 1]
+	Existing Cells (Chunk-IDs) : 
+	0|0|0, 
+	0|0|1, 
+	0|1|0, 
+	1|0|0, 
+	1|1|0, 
+	2|0|0, 
+	2|0|1, 
+	2|1|0, 
+	2|1|1, 
+
+
+CHUNK : 0|0|0
+----------------------------------------
+	Depth = 2, NumOfDims = 3, totNumCells = 16, rlNumCells = 16, size(bytes) = 128
+	Location(Country) : [0, 1]
+	Product(Type) : [0, 1]
+	Date(Quarter) : [0, 3]
+	Existing Cells (Chunk-IDs) : 
+	0|0|0.0|0|0, 
+	0|0|0.0|0|1, 
+	0|0|0.0|0|2, 
+
+
+CHUNK : 0|0|0.0|0|0
+----------------------------------------
+	Depth = 3, NumOfDims = 3, totNumCells = 6, rlNumCells = 6, size(bytes) = 48
+	Location(Region) : [0, 1]
+	Product(Pseudo-level 1) : [4294967295, 4294967295]
+	Date(Month) : [0, 2]
+	Existing Cells (Chunk-IDs) : 
+	0|0|0.0|0|0.0|-1|0, 
+	0|0|0.0|0|0.1|-1|0, 
+
+
+CHUNK : 0|0|0.0|0|0.0|-1|0
+----------------------------------------
+	Depth = 4, NumOfDims = 3, totNumCells = 62, rlNumCells = 8, size(bytes) = 72
+	Location(City) : [0, 0]
+	Product(Item) : [0, 1]
+	Date(Day) : [0, 30]
+	Existing Cells (Chunk-IDs) : 
+	0|0|0.0|0|0.0|-1|0.0|0|3, 
+	0|0|0.0|0|0.0|-1|0.0|0|4, 
+	0|0|0.0|0|0.0|-1|0.0|0|7, 
+	0|0|0.0|0|0.0|-1|0.0|0|30, 
+	0|0|0.0|0|0.0|-1|0.0|1|0, 
+	0|0|0.0|0|0.0|-1|0.0|1|5, 
+	0|0|0.0|0|0.0|-1|0.0|1|10, 
+	0|0|0.0|0|0.0|-1|0.0|1|11, 
+
+
+CHUNK : 0|0|0.0|0|0.1|-1|0
+----------------------------------------
+	Depth = 4, NumOfDims = 3, totNumCells = 124, rlNumCells = 2, size(bytes) = 32
+	Location(City) : [1, 2]
+	Product(Item) : [0, 1]
+	Date(Day) : [0, 30]
+	Existing Cells (Chunk-IDs) : 
+	0|0|0.0|0|0.1|-1|0.1|0|0, 
+	0|0|0.0|0|0.1|-1|0.1|0|30, 
+
+
+CHUNK : 0|0|0.0|0|1
+----------------------------------------
+	Depth = 3, NumOfDims = 3, totNumCells = 6, rlNumCells = 6, size(bytes) = 48
+	Location(Region) : [0, 1]
+	Product(Pseudo-level 1) : [4294967295, 4294967295]
+	Date(Month) : [3, 5]
+	Existing Cells (Chunk-IDs) : 
+	0|0|0.0|0|1.1|-1|4, 
+
+
+CHUNK : 0|0|0.0|0|1.1|-1|4
+----------------------------------------
+	Depth = 4, NumOfDims = 3, totNumCells = 124, rlNumCells = 2, size(bytes) = 32
+	Location(City) : [1, 2]
+	Product(Item) : [0, 1]
+	Date(Day) : [120, 150]
+	Existing Cells (Chunk-IDs) : 
+	0|0|0.0|0|1.1|-1|4.1|0|120, 
+	0|0|0.0|0|1.1|-1|4.1|0|133, 
+
+
+CHUNK : 0|0|0.0|0|2
+----------------------------------------
+	Depth = 3, NumOfDims = 3, totNumCells = 6, rlNumCells = 6, size(bytes) = 48
+	Location(Region) : [0, 1]
+	Product(Pseudo-level 1) : [4294967295, 4294967295]
+	Date(Month) : [6, 8]
+	Existing Cells (Chunk-IDs) : 
+	0|0|0.0|0|2.1|-1|8, 
+
+
+CHUNK : 0|0|0.0|0|2.1|-1|8
+----------------------------------------
+	Depth = 4, NumOfDims = 3, totNumCells = 120, rlNumCells = 2, size(bytes) = 31
+	Location(City) : [1, 2]
+	Product(Item) : [0, 1]
+	Date(Day) : [243, 272]
+	Existing Cells (Chunk-IDs) : 
+	0|0|0.0|0|2.1|-1|8.1|1|245, 
+	0|0|0.0|0|2.1|-1|8.2|0|270, 
+
+
+CHUNK : 0|0|1
+----------------------------------------
+	Depth = 2, NumOfDims = 3, totNumCells = 16, rlNumCells = 16, size(bytes) = 128
+	Location(Country) : [0, 1]
+	Product(Type) : [0, 1]
+	Date(Quarter) : [4, 7]
+	Existing Cells (Chunk-IDs) : 
+	0|0|1.0|0|4, 
+	0|0|1.0|1|4, 
+	0|0|1.0|1|5, 
+	0|0|1.0|1|6, 
+	0|0|1.0|1|7, 
+
+
+CHUNK : 0|0|1.0|0|4
+----------------------------------------
+	Depth = 3, NumOfDims = 3, totNumCells = 6, rlNumCells = 6, size(bytes) = 48
+	Location(Region) : [0, 1]
+	Product(Pseudo-level 1) : [4294967295, 4294967295]
+	Date(Month) : [12, 14]
+	Existing Cells (Chunk-IDs) : 
+	0|0|1.0|0|4.1|-1|13, 
+
+
+CHUNK : 0|0|1.0|0|4.1|-1|13
+----------------------------------------
+	Depth = 4, NumOfDims = 3, totNumCells = 112, rlNumCells = 1, size(bytes) = 22
+	Location(City) : [1, 2]
+	Product(Item) : [0, 1]
+	Date(Day) : [396, 423]
+	Existing Cells (Chunk-IDs) : 
+	0|0|1.0|0|4.1|-1|13.2|1|397, 
+
+
+CHUNK : 0|0|1.0|1|4
+----------------------------------------
+	Depth = 3, NumOfDims = 3, totNumCells = 6, rlNumCells = 6, size(bytes) = 48
+	Location(Region) : [0, 1]
+	Product(Pseudo-level 1) : [4294967295, 4294967295]
+	Date(Month) : [12, 14]
+	Existing Cells (Chunk-IDs) : 
+	0|0|1.0|1|4.0|-1|13, 
+
+
+CHUNK : 0|0|1.0|1|4.0|-1|13
+----------------------------------------
+	Depth = 4, NumOfDims = 3, totNumCells = 56, rlNumCells = 1, size(bytes) = 15
+	Location(City) : [0, 0]
+	Product(Item) : [2, 3]
+	Date(Day) : [396, 423]
+	Existing Cells (Chunk-IDs) : 
+	0|0|1.0|1|4.0|-1|13.0|2|410, 
+
+
+CHUNK : 0|0|1.0|1|5
+----------------------------------------
+	Depth = 3, NumOfDims = 3, totNumCells = 6, rlNumCells = 6, size(bytes) = 48
+	Location(Region) : [0, 1]
+	Product(Pseudo-level 1) : [4294967295, 4294967295]
+	Date(Month) : [15, 17]
+	Existing Cells (Chunk-IDs) : 
+	0|0|1.0|1|5.0|-1|15, 
+	0|0|1.0|1|5.1|-1|16, 
+
+
+CHUNK : 0|0|1.0|1|5.0|-1|15
+----------------------------------------
+	Depth = 4, NumOfDims = 3, totNumCells = 60, rlNumCells = 1, size(bytes) = 16
+	Location(City) : [0, 0]
+	Product(Item) : [2, 3]
+	Date(Day) : [455, 484]
+	Existing Cells (Chunk-IDs) : 
+	0|0|1.0|1|5.0|-1|15.0|3|460, 
+
+
+CHUNK : 0|0|1.0|1|5.1|-1|16
+----------------------------------------
+	Depth = 4, NumOfDims = 3, totNumCells = 124, rlNumCells = 1, size(bytes) = 24
+	Location(City) : [1, 2]
+	Product(Item) : [2, 3]
+	Date(Day) : [485, 515]
+	Existing Cells (Chunk-IDs) : 
+	0|0|1.0|1|5.1|-1|16.1|2|487, 
+
+
+CHUNK : 0|0|1.0|1|6
+----------------------------------------
+	Depth = 3, NumOfDims = 3, totNumCells = 6, rlNumCells = 6, size(bytes) = 48
+	Location(Region) : [0, 1]
+	Product(Pseudo-level 1) : [4294967295, 4294967295]
+	Date(Month) : [18, 20]
+	Existing Cells (Chunk-IDs) : 
+	0|0|1.0|1|6.1|-1|18, 
+
+
+CHUNK : 0|0|1.0|1|6.1|-1|18
+----------------------------------------
+	Depth = 4, NumOfDims = 3, totNumCells = 124, rlNumCells = 1, size(bytes) = 24
+	Location(City) : [1, 2]
+	Product(Item) : [2, 3]
+	Date(Day) : [546, 576]
+	Existing Cells (Chunk-IDs) : 
+	0|0|1.0|1|6.1|-1|18.1|3|550, 
+
+
+CHUNK : 0|0|1.0|1|7
+----------------------------------------
+	Depth = 3, NumOfDims = 3, totNumCells = 6, rlNumCells = 6, size(bytes) = 48
+	Location(Region) : [0, 1]
+	Product(Pseudo-level 1) : [4294967295, 4294967295]
+	Date(Month) : [21, 23]
+	Existing Cells (Chunk-IDs) : 
+	0|0|1.0|1|7.1|-1|22, 
+
+
+CHUNK : 0|0|1.0|1|7.1|-1|22
+----------------------------------------
+	Depth = 4, NumOfDims = 3, totNumCells = 120, rlNumCells = 1, size(bytes) = 23
+	Location(City) : [1, 2]
+	Product(Item) : [2, 3]
+	Date(Day) : [669, 698]
+	Existing Cells (Chunk-IDs) : 
+	0|0|1.0|1|7.1|-1|22.2|2|675, 
+
+
+CHUNK : 0|1|0
+----------------------------------------
+	Depth = 2, NumOfDims = 3, totNumCells = 8, rlNumCells = 8, size(bytes) = 64
+	Location(Country) : [0, 1]
+	Product(Type) : [2, 2]
+	Date(Quarter) : [0, 3]
+	Existing Cells (Chunk-IDs) : 
+	0|1|0.0|2|0, 
+
+
+CHUNK : 0|1|0.0|2|0
+----------------------------------------
+	Depth = 3, NumOfDims = 3, totNumCells = 6, rlNumCells = 6, size(bytes) = 48
+	Location(Region) : [0, 1]
+	Product(Pseudo-level 1) : [4294967295, 4294967295]
+	Date(Month) : [0, 2]
+	Existing Cells (Chunk-IDs) : 
+	0|1|0.0|2|0.0|-1|0, 
+
+
+CHUNK : 0|1|0.0|2|0.0|-1|0
+----------------------------------------
+	Depth = 4, NumOfDims = 3, totNumCells = 62, rlNumCells = 3, size(bytes) = 32
+	Location(City) : [0, 0]
+	Product(Item) : [4, 5]
+	Date(Day) : [0, 30]
+	Existing Cells (Chunk-IDs) : 
+	0|1|0.0|2|0.0|-1|0.0|4|4, 
+	0|1|0.0|2|0.0|-1|0.0|5|7, 
+	0|1|0.0|2|0.0|-1|0.0|5|30, 
+
+
+CHUNK : 1|0|0
+----------------------------------------
+	Depth = 2, NumOfDims = 3, totNumCells = 8, rlNumCells = 8, size(bytes) = 64
+	Location(Country) : [2, 2]
+	Product(Type) : [0, 1]
+	Date(Quarter) : [0, 3]
+	Existing Cells (Chunk-IDs) : 
+	1|0|0.2|0|0, 
+
+
+CHUNK : 1|0|0.2|0|0
+----------------------------------------
+	Depth = 3, NumOfDims = 3, totNumCells = 9, rlNumCells = 9, size(bytes) = 72
+	Location(Region) : [4, 6]
+	Product(Pseudo-level 1) : [4294967295, 4294967295]
+	Date(Month) : [0, 2]
+	Existing Cells (Chunk-IDs) : 
+	1|0|0.2|0|0.4|-1|0, 
+	1|0|0.2|0|0.5|-1|0, 
+
+
+CHUNK : 1|0|0.2|0|0.4|-1|0
+----------------------------------------
+	Depth = 4, NumOfDims = 3, totNumCells = 124, rlNumCells = 3, size(bytes) = 40
+	Location(City) : [6, 7]
+	Product(Item) : [0, 1]
+	Date(Day) : [0, 30]
+	Existing Cells (Chunk-IDs) : 
+	1|0|0.2|0|0.4|-1|0.6|0|3, 
+	1|0|0.2|0|0.4|-1|0.6|1|3, 
+	1|0|0.2|0|0.4|-1|0.6|0|4, 
+
+
+CHUNK : 1|0|0.2|0|0.5|-1|0
+----------------------------------------
+	Depth = 4, NumOfDims = 3, totNumCells = 124, rlNumCells = 1, size(bytes) = 24
+	Location(City) : [8, 9]
+	Product(Item) : [0, 1]
+	Date(Day) : [0, 30]
+	Existing Cells (Chunk-IDs) : 
+	1|0|0.2|0|0.5|-1|0.9|0|7, 
+
+
+CHUNK : 1|1|0
+----------------------------------------
+	Depth = 2, NumOfDims = 3, totNumCells = 4, rlNumCells = 4, size(bytes) = 32
+	Location(Country) : [2, 2]
+	Product(Type) : [2, 2]
+	Date(Quarter) : [0, 3]
+	Existing Cells (Chunk-IDs) : 
+	1|1|0.2|2|0, 
+
+
+CHUNK : 1|1|0.2|2|0
+----------------------------------------
+	Depth = 3, NumOfDims = 3, totNumCells = 9, rlNumCells = 9, size(bytes) = 72
+	Location(Region) : [4, 6]
+	Product(Pseudo-level 1) : [4294967295, 4294967295]
+	Date(Month) : [0, 2]
+	Existing Cells (Chunk-IDs) : 
+	1|1|0.2|2|0.6|-1|0, 
+
+
+CHUNK : 1|1|0.2|2|0.6|-1|0
+----------------------------------------
+	Depth = 4, NumOfDims = 3, totNumCells = 62, rlNumCells = 1, size(bytes) = 16
+	Location(City) : [10, 10]
+	Product(Item) : [4, 5]
+	Date(Day) : [0, 30]
+	Existing Cells (Chunk-IDs) : 
+	1|1|0.2|2|0.6|-1|0.10|5|30, 
+
+
+CHUNK : 2|0|0
+----------------------------------------
+	Depth = 2, NumOfDims = 3, totNumCells = 16, rlNumCells = 16, size(bytes) = 128
+	Location(Country) : [3, 4]
+	Product(Type) : [0, 1]
+	Date(Quarter) : [0, 3]
+	Existing Cells (Chunk-IDs) : 
+	2|0|0.3|0|0, 
+	2|0|0.4|0|0, 
+
+
+CHUNK : 2|0|0.3|0|0
+----------------------------------------
+	Depth = 3, NumOfDims = 3, totNumCells = 6, rlNumCells = 6, size(bytes) = 48
+	Location(Region) : [7, 8]
+	Product(Pseudo-level 1) : [4294967295, 4294967295]
+	Date(Month) : [0, 2]
+	Existing Cells (Chunk-IDs) : 
+	2|0|0.3|0|0.7|-1|0, 
+
+
+CHUNK : 2|0|0.3|0|0.7|-1|0
+----------------------------------------
+	Depth = 4, NumOfDims = 3, totNumCells = 62, rlNumCells = 1, size(bytes) = 16
+	Location(City) : [11, 11]
+	Product(Item) : [0, 1]
+	Date(Day) : [0, 30]
+	Existing Cells (Chunk-IDs) : 
+	2|0|0.3|0|0.7|-1|0.11|1|0, 
+
+
+CHUNK : 2|0|0.4|0|0
+----------------------------------------
+	Depth = 3, NumOfDims = 3, totNumCells = 6, rlNumCells = 6, size(bytes) = 48
+	Location(Region) : [9, 10]
+	Product(Pseudo-level 1) : [4294967295, 4294967295]
+	Date(Month) : [0, 2]
+	Existing Cells (Chunk-IDs) : 
+	2|0|0.4|0|0.9|-1|0, 
+
+
+CHUNK : 2|0|0.4|0|0.9|-1|0
+----------------------------------------
+	Depth = 4, NumOfDims = 3, totNumCells = 124, rlNumCells = 1, size(bytes) = 24
+	Location(City) : [15, 16]
+	Product(Item) : [0, 1]
+	Date(Day) : [0, 30]
+	Existing Cells (Chunk-IDs) : 
+	2|0|0.4|0|0.9|-1|0.15|1|5, 
+
+
+CHUNK : 2|0|1
+----------------------------------------
+	Depth = 2, NumOfDims = 3, totNumCells = 16, rlNumCells = 16, size(bytes) = 128
+	Location(Country) : [3, 4]
+	Product(Type) : [0, 1]
+	Date(Quarter) : [4, 7]
+	Existing Cells (Chunk-IDs) : 
+	2|0|1.4|0|6, 
+
+
+CHUNK : 2|0|1.4|0|6
+----------------------------------------
+	Depth = 3, NumOfDims = 3, totNumCells = 6, rlNumCells = 6, size(bytes) = 48
+	Location(Region) : [9, 10]
+	Product(Pseudo-level 1) : [4294967295, 4294967295]
+	Date(Month) : [18, 20]
+	Existing Cells (Chunk-IDs) : 
+	2|0|1.4|0|6.10|-1|18, 
+
+
+CHUNK : 2|0|1.4|0|6.10|-1|18
+----------------------------------------
+	Depth = 4, NumOfDims = 3, totNumCells = 124, rlNumCells = 1, size(bytes) = 24
+	Location(City) : [17, 18]
+	Product(Item) : [0, 1]
+	Date(Day) : [546, 576]
+	Existing Cells (Chunk-IDs) : 
+	2|0|1.4|0|6.10|-1|18.17|1|551, 
+
+
+CHUNK : 2|1|0
+----------------------------------------
+	Depth = 2, NumOfDims = 3, totNumCells = 8, rlNumCells = 8, size(bytes) = 64
+	Location(Country) : [3, 4]
+	Product(Type) : [2, 2]
+	Date(Quarter) : [0, 3]
+	Existing Cells (Chunk-IDs) : 
+	2|1|0.4|2|0, 
+
+
+CHUNK : 2|1|0.4|2|0
+----------------------------------------
+	Depth = 3, NumOfDims = 3, totNumCells = 6, rlNumCells = 6, size(bytes) = 48
+	Location(Region) : [9, 10]
+	Product(Pseudo-level 1) : [4294967295, 4294967295]
+	Date(Month) : [0, 2]
+	Existing Cells (Chunk-IDs) : 
+	2|1|0.4|2|0.10|-1|0, 
+
+
+CHUNK : 2|1|0.4|2|0.10|-1|0
+----------------------------------------
+	Depth = 4, NumOfDims = 3, totNumCells = 124, rlNumCells = 1, size(bytes) = 24
+	Location(City) : [17, 18]
+	Product(Item) : [4, 5]
+	Date(Day) : [0, 30]
+	Existing Cells (Chunk-IDs) : 
+	2|1|0.4|2|0.10|-1|0.18|4|11, 
+
+
+CHUNK : 2|1|1
+----------------------------------------
+	Depth = 2, NumOfDims = 3, totNumCells = 8, rlNumCells = 8, size(bytes) = 64
+	Location(Country) : [3, 4]
+	Product(Type) : [2, 2]
+	Date(Quarter) : [4, 7]
+	Existing Cells (Chunk-IDs) : 
+	2|1|1.4|2|5, 
+
+
+CHUNK : 2|1|1.4|2|5
+----------------------------------------
+	Depth = 3, NumOfDims = 3, totNumCells = 6, rlNumCells = 6, size(bytes) = 48
+	Location(Region) : [9, 10]
+	Product(Pseudo-level 1) : [4294967295, 4294967295]
+	Date(Month) : [15, 17]
+	Existing Cells (Chunk-IDs) : 
+	2|1|1.4|2|5.10|-1|16, 
+
+
+CHUNK : 2|1|1.4|2|5.10|-1|16
+----------------------------------------
+	Depth = 4, NumOfDims = 3, totNumCells = 124, rlNumCells = 1, size(bytes) = 24
+	Location(City) : [17, 18]
+	Product(Item) : [4, 5]
+	Date(Day) : [485, 515]
+	Existing Cells (Chunk-IDs) : 
+	2|1|1.4|2|5.10|-1|16.17|5|487, 
+
+
+
+
+******************************************
+ TOTAL SIZE (bytes) : 2227
+ TOTAL SIZE (MINIMUM #disk pages) : 1
+ TOTAL SIZE FULL CUBE (bytes) : 665760
+******************************************

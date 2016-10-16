@@ -1,0 +1,17 @@
+AccessManager.o: AccessManager.C definitions.h AccessManager.h Cube.h \
+ Bucket.h SystemManager.h FileManager.h CatalogManager.h Chunk.h
+Bucket.o: Bucket.C Bucket.h Chunk.h definitions.h
+BufferManager.o: BufferManager.C BufferManager.h
+CatalogManager.o: CatalogManager.C CatalogManager.h Cube.h Bucket.h \
+ SystemManager.h
+Chunk.o: Chunk.C definitions.h Chunk.h Bucket.h AccessManager.h Cube.h
+Cube.o: Cube.C Cube.h Bucket.h
+FileManager.o: FileManager.C FileManager.h Cube.h Bucket.h \
+ SystemManager.h
+SsmStartUpThread.o: SsmStartUpThread.C SsmStartUpThread.h \
+ SystemManager.h CatalogManager.h Cube.h Bucket.h BufferManager.h \
+ FileManager.h StdinThread.h definitions.h
+StdinThread.o: StdinThread.C StdinThread.h definitions.h \
+ AccessManager.h
+SystemManager.o: SystemManager.C SystemManager.h
+sisyphus.o: sisyphus.C SsmStartUpThread.h

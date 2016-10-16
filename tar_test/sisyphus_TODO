@@ -1,0 +1,74 @@
+3/1/2001
+
+Notes:
+* Afhse gia thn wra to vector twn Dimension sto cubeInfo ws exei.
+
+* argotera an xreiastei, gia na mhn exoume ola ta members enos level sthn
+   mnhmh, ylopoihse synarthsh Dimension_Level::get_next_members pou 8a fortwnei
+   ena array (px apo 15 members) me 15 nea members, pou 8a ta vriskei apo to dim.txt.
+
+* Sthn class Bucket, anti gia ena vector<autoptr<Chunk>> body; Ftiaxe 2 vectors:
+	vector<DirChunk> bodyDir; kai vector<DataChunk> bodyData; Gia na krataei
+	ta directory kai ta data chunks ksexwrista! Ayto dioti mesw tou pointer se Chunk
+	den 8a mporw na kalw thn member function getcBitmap ths DataChunk, h opoia den einai
+	virtual!  Eksallou, emeis mesa sta vectors tou bucket 8eloume ta idia ta dedomena,
+	wste na ta paketaroume se ena byte vector tou Shore kai na ta apo8hkeusoume, den
+	8eloume na apo8hkeusoume pointers!
+
+* Gia thn apo8hkeush ston disko p.x. enos bucket: pairnw ta members pou me endiaferoun
+  kai ta kanw pack se ena shore vect_t kai ta vazw mesa se ena record. Antistrofa, diavazontas
+  to record ap' to disko, pairnw ta epimerous members mesa apo to record ws ekshs:
+ px. kserw oti sizeof(vector<DirChunk>) = 2000bytes kai sizeof(vector<DataChunk>) = 3000bytes,
+ then kanw pin me start = 0 gia na parw to DirChunk (dirp = (vector<DirChunk>*)handle.body();)
+ meta kanw const char* p = (const char*)dirp; p=p+2000; opote kanw datap = (vector<DataChunk>*)p;
+ oso gia to header, ayto ginetai panta pinned apo mono tou kai to pairnw me thn me8odo hdr().
+Ta sizes twn 2 vectors mporw na ta apo8hkeuw sto bucket header, opote na ta diavazw apo ekei.
+kalw ton Bucket  constructor me eisodo tous pointers: hdrp, dirp kai datap.
+
+NOTE: apo ta parapanw einai fanero, oti ta members tou bucket prpei na einai pointers
+enw ta members olwn twn ypoloipwn : DirChunk, DataChunk, den prepei na einai pointers
+h' references, wste na mporoun na apou8hkeutoun ta idia mesa sto bucket!!!
+
+* Proswrina kai mexri na ftiaxtei Dimension File, opou tote 8a uposthrizoume operations opws:
+	create_dim <name>
+	load_dim <name>
+ kai 8a yparxei katallhlo DimInfo kai eggrafes stous katalogous kata analogia twn cubes.
+ Mexri, tote xrhsimopoioume thn load_cube gia na perasoume to schema KAI ta data twn
+ dimensions sto Sisypho kai apouhkeuoyme ola ta dimension data mesa se ena CubeInfo record.
+ Opote h load_cube ginetai:
+
+ AccessManager::load_cube(name, dimSchema_and_data, fact_schema_and_data)
+
+* !!!!!!About Composite Objects!!!!!!!!!!!
+  There are basically 3 ways of handling it, concerning the implementation of the composed (embedded)
+  objects: (a)include the object, (b) include a pointer to the object, (c) include a reference to the object
+	(1) I will use (a) in the cases where I have the definiton of the members data type, above the
+            the definition (in the same .h file) of the class in question. E.g. for class Bucket and
+	    member struct BucketHeader. Note: that for the case where we wish to initialise the embedded
+	    object from the composite obj constructor, then we call the corresponding embedded obj. constructor
+	    in the initialization list of the composite obj. constructor!!
+
+	
+	(2) (b) & (c) will be used in order to avoid compilation dependencies (see item 34 (Effective C++) and item 40)
+	     (b) will be preffered when the pointer member points to a large object (e.g. vector<DataChunks> in Bucket)
+	         in order to avoid static allocation of memory and make the program smaller and more efficient.
+	     Especially for (b) the following must be done:
+		*Initialization of the pointer in each of the constructors. If no memory is to be allocated to the pointer
+	         in a particular constructor, the pointer should be initialized to 0 (i.e., the null pointer).
+		*Deletion of the existing memory and assignment of new memory in the assignment operator.
+		*Deletion of the pointer in the destructor.
+	    Especially for (c) the following must be done:	
+		all reference members must be initialised in the initialization list of the constructor
+		of the composite class.
+	     I wont use this (b)
+	( NOTE:Des item 34, item 40(Effective C++) and item 1 (More Effective C++))
+
+
+1. continue with the construction algorithm phase :
+AccessManager::putIntoBuckets
+
+2. write updated CubeInfo back to the catalog.
+
+3. ksana-sxediase class Cube
+
+4. Add debugging points - Debug

@@ -1,0 +1,15 @@
+Before you compile with make these programs, you
+have to create the Makefile.Dependencies file, where
+the dependencies between source files are stored.
+
+In order to do this, you have to:
+
+1. At /source/Makefile comment out line: "include $(DEPENDENCIES_FILE)"
+
+2. Run: cd /source; make depend
+
+3. Remove the comments you've put in 1.
+
+Nikos Karayannidis - 15 May 2000
+
+

@@ -1,0 +1,55 @@
+DIMENSION Product
+
+LEVEL Category
+MEMBER Books 0 1
+MEMBER Music 2 2
+
+LEVEL Type
+MEMBER Literature 0 1
+MEMBER Philosophy 2 3
+MEMBER Heavy_Metal 4 5
+
+LEVEL Item
+MEMBER Report_to_El_Greco -1 -1
+MEMBER Karamazof_brothers -1 -1
+MEMBER Zarathustra -1 -1
+MEMBER Symposium -1 -1
+MEMBER Piece_of_Mind -1 -1
+MEMBER Ace_of_Spades -1 -1
+
+DIMENSION Location
+
+LEVEL Continent
+MEMBER Europe 0 0
+MEMBER North_America 1 1
+MEMBER Asia 2 2
+
+LEVEL Country
+MEMBER Greece 0 1
+MEMBER USA 2 4
+MEMBER Japan 5 6
+
+LEVEL Region
+MEMBER Greece-North 0 0
+MEMBER Greece-South 1 2
+MEMBER USA-East 3 4
+MEMBER USA-West 5 6
+MEMBER USA-North 7 7
+MEMBER Kiusiu 8 8
+MEMBER Hondo 9 11
+
+LEVEL City
+MEMBER Salonica -1 -1
+MEMBER Athens -1 -1
+MEMBER Rhodes -1 -1
+MEMBER New_York -1 -1
+MEMBER Boston -1 -1
+MEMBER Los_Angeles -1 -1
+MEMBER San_Francisco -1 -1
+MEMBER Seattle -1 -1
+MEMBER Nagasaki -1 -1
+MEMBER Tokyo -1 -1
+MEMBER Yokohama -1 -1
+MEMBER Kioto -1 -1
+
+ENDOFDIMENSIONS

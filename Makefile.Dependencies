@@ -1,0 +1,36 @@
+AccessManager.o: AccessManager.C AccessManager.h StdinThread.h \
+ definitions.h AccessManagerImpl.h Cube.h Bucket.h DiskStructures.h \
+ bitmap.h Chunk.h Exceptions.h
+AccessManagerImpl.o: AccessManagerImpl.C definitions.h \
+ AccessManagerImpl.h AccessManager.h StdinThread.h Cube.h Bucket.h \
+ DiskStructures.h bitmap.h Chunk.h Exceptions.h SystemManager.h \
+ FileManager.h CatalogManager.h DataVector.h Misc.h
+Bucket.o: Bucket.C Bucket.h SystemManager.h Chunk.h DiskStructures.h \
+ definitions.h bitmap.h Exceptions.h
+Bucket.old.o: Bucket.old.C Bucket.h Chunk.h DiskStructures.h \
+ definitions.h bitmap.h Exceptions.h
+BufferManager.o: BufferManager.C BufferManager.h
+CatalogManager.o: CatalogManager.C CatalogManager.h Cube.h Bucket.h \
+ DiskStructures.h definitions.h bitmap.h AccessManager.h StdinThread.h \
+ SystemManager.h Exceptions.h
+Chunk.o: Chunk.C definitions.h Chunk.h Bucket.h DiskStructures.h \
+ bitmap.h Exceptions.h AccessManagerImpl.h AccessManager.h \
+ StdinThread.h Cube.h
+Cube.o: Cube.C Cube.h Bucket.h DiskStructures.h definitions.h bitmap.h \
+ AccessManager.h StdinThread.h Chunk.h Exceptions.h
+DataVector.o: DataVector.C DataVector.h
+DiskStructures.o: DiskStructures.C DiskStructures.h Bucket.h \
+ definitions.h bitmap.h Chunk.h Exceptions.h
+Exceptions.o: Exceptions.C Exceptions.h
+FileManager.o: FileManager.C FileManager.h definitions.h \
+ SystemManager.h DiskStructures.h Bucket.h bitmap.h Exceptions.h \
+ DataVector.h Cube.h AccessManager.h StdinThread.h
+Misc.o: Misc.C Misc.h definitions.h
+SsmStartUpThread.o: SsmStartUpThread.C SsmStartUpThread.h \
+ SystemManager.h CatalogManager.h Cube.h Bucket.h DiskStructures.h \
+ definitions.h bitmap.h AccessManager.h StdinThread.h BufferManager.h \
+ FileManager.h
+StdinThread.o: StdinThread.C StdinThread.h definitions.h \
+ AccessManager.h
+SystemManager.o: SystemManager.C SystemManager.h
+sisyphus.o: sisyphus.C SsmStartUpThread.h

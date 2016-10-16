@@ -1,0 +1,508 @@
+/***************************************************************************
+                          DiskStructures.h  -  Structures for disk storage of a bucket
+
+  This structures are designed in order to minimize storage overhead therefore
+  data types used are chosen likewise. E.g., there is an extensive use of
+  "char" for representing small integers.
+
+                             -------------------
+    begin                : Thu Jun 7 2001
+    copyright            : (C) 2001 by Nikos Karayannidis
+    email                : 
+ ***************************************************************************/
+
+#ifndef DISK_STRUCTURES_H
+#define DISK_STRUCTURES_H
+
+//#include <sm_vas.h>
+//#include <map>
+//#include <pair.h>
+//#include <vector>
+//#include <string>
+#include <new>
+
+#include "Bucket.h"
+//#include "Chunk.h"
+#include "definitions.h"
+#include "bitmap.h"
+
+using namespace bmp;
+
+/**
+ * This structure implements the header of a chunk (dir or data chunk).
+ *
+ * @author Nikos Karayannidis
+ */
+struct DiskChunkHeader {
+	/**
+	 * Define the type of an order-code
+	 */
+        typedef int ordercode_t;
+
+        struct CidDomain{
+        	/**
+        	 * pointer to this domain's order-codes
+        	 */
+        	ordercode_t* ordercodes;
+        	
+        	CidDomain():ordercodes(0){}
+        	~CidDomain() { if(ordercodes) delete [] ordercodes;}
+        };
+        typedef CidDomain Domain_t;
+       	
+       	/**
+	 * Define the NULL range.
+	 * Note: the condition to check for a null range is: ?(leftEnd==rightEnd)
+	 */
+        //enum {null_range = -1};
+        static const char null_range = -1;
+
+       	/**
+	 * Define the type of an order-code range
+	 */
+        struct OcRng{
+		ordercode_t left;
+		ordercode_t right;
+		
+		OcRng():left(null_range),right(null_range){}
+        }; 	
+        typedef OcRng OrderCodeRng_t;
+        		
+	/**
+	 * This is the chunk's global chunking depth D.
+	 */
+	char depth;
+	
+	/**
+	 * This is the chunk's local chunking depth d.
+	 */
+	char local_depth;
+		
+	/**
+	 * This boolean flag is meaningless only if local_depth >= 0. It denotes
+	 * the existence of child chunks. Therefore, if next = 0 then this is a data chunk
+	 * and if next = 1 this is a directory chunk.
+	 */
+	bool next_local_depth;
+	
+	/**
+	 * The number of dimensions of the chunk. Also denotes the length of the innermost
+	 * vector of the chunk id and the length of the order-code range vector (see further on)
+	 */
+	unsigned char no_dims;
+			
+	/**
+	 * The number of measures contained inside the cell of this chunk. If this
+	 * is a directory chunk then = 0.
+	 */		
+	unsigned char no_measures;
+	
+	/**
+	 * The number of entries of this chunk. If this is a data chunk
+	 * then this is the total number of entries (empty cells included), i.e.
+	 * it gives us the length of the bitmap.
+	 */
+        unsigned int no_entries;
+        	        	
+	/**
+	 * A chunk id is of the form: oc|oc...|oc[.oc|oc...|oc]...,
+	 * where "oc" is an order-code corresponding to a specific dimension
+	 * and a specific level within this dimension.
+	 * We implement the chunk id with a vector of vectors of order-codes.
+	 * The outmost vector corresponds to the different domains (i.e. depths)
+	 * of the chunk id, while the innermost corresponds to the different dimensions.
+	 * This heap structure is laid out on a byte array order-code by order-code prior to
+	 * disk storage. Therefore,in order to read it back, special offset computing
+	 * routines are needed.
+	 */
+	//vector<vector<ordercode_t> > chunk_id;
+	//ordercode_t** chunk_id;
+	Domain_t* chunk_id;
+	
+	/**
+	 * This vector contains a range of order-codes for each dimension level of the
+	 * depth of this chunk.Therefore the length is equal with the number of dimensions.
+	 * This range denotes the order-codes covered on each dimension
+	 * from this chunk.
+	 * This heap structure is laid out on a byte array range by range prior to
+	 * disk storage. Therefore,in order to read it back, special offset computing
+	 * routines are needed.	
+	 */
+	 //vector<OrderCodeRng_t> oc_range;
+	 OrderCodeRng_t* oc_range;
+	 /**
+	  * Default constructor
+	  */
+	 DiskChunkHeader();
+	
+	 /**
+	  * copy constructor
+	  */
+	  //DiskChunkHeader(const DiskChunkHeader& h):
+	  //	depth(h.depth),local_depth(h.local_depth), next_local_depth(h.next_local_depth), no_dims(h.no_dims),
+	  //	no_measures(h.no_measures),no_entries(h.no_entries),chunk_id(h.chunk_id),oc_range(h.oc_range) {}
+	
+	  /*
+	   * Destructor. It has to free space pointed to by the chunk id
+	   * and oc_range arrays
+	   */
+	 ~DiskChunkHeader() {
+	 	/*for(int d = 1; d<=depth; i++){
+	 		delete [] chunk_id[d-1];
+	 	} */
+	 	if(chunk_id) delete [] chunk_id;
+	 	if(oc_range) delete [] oc_range;
+	 }	
+	
+	/**
+	 * Calculate the number of domains in a chunk id from the values of the global
+	 * and local depth of a chunk. The calculation holds for all possible integer values of the
+	 * MINIMUM CHUNKING DEPTH constant.
+	 */
+	 static int getNoOfDomainsFromDepth(short  int depth, short int local_depth);	
+private:
+	//protection from copy constructor
+	DiskChunkHeader(const DiskChunkHeader&);
+	
+	//protection from assignment
+	DiskChunkHeader& operator=(const DiskChunkHeader&);
+}; //end of DiskChunkHeader
+
+
+struct DiskDirChunk {
+	/**
+	 * Define the type of a directory chunk entry.
+	 */
+        struct Entry {
+        	BucketID bucketid;
+        	unsigned short chunk_slot;
+        };
+        typedef Entry DirEntry_t;
+
+         /**
+          * Define the type of a range-to-order_code mapping
+          * element,used for artificially chunked DiskDirChunks.
+          */
+         struct Rng2ocElem {
+         	DiskChunkHeader::ordercode_t rngLeftBoundary;
+         };
+         typedef Rng2ocElem Rng2ocElem_t;
+
+        /**
+         * Define the type of a range-to-order_code mapping,
+         * used for artificially chunked DiskDirChunks.
+         */
+         struct Rng2oc{
+         	/**
+         	 *  Array of range-to-order_code mappings
+         	 */
+		Rng2ocElem_t* rngElemp;         	
+		
+		/**
+		 * No of entries of the rngElemp array
+		 */
+		short unsigned int noMembers;
+		
+		Rng2oc(): rngElemp(0), noMembers(0) {}
+		~Rng2oc() { if(rngElemp) delete [] rngElemp; }
+         };
+         typedef Rng2oc	Rng2oc_t;
+
+	/**
+	 * The chunk header
+	 */        		
+	DiskChunkHeader	hdr;
+	
+	/**
+	 * This is a pointer to the mapping of oc-ranges to order-codes,
+	 * used for artificially chunked DiskDirChunks. If this is not such a chunk
+	 * then this pointer is NULL (==0). For each dimension, we store as many ranges
+	 * as there are parent members (see Rng2oc_t::noMembers) inserted by the artif. chunking
+	 * process. Note that we only store the left boundary value for each range, since it is
+	 * easy to infer the right one. Also we do not store the actual order-code value to which
+	 * a specific range maps to. Again this is easy to infer from the order of the range in question
+	 * in the list of ranges for a specific dimensions (e.g., 1st, 2nd, etc.); since the
+	 * order_code for the 1st range (for any dimension) is always Chunk::MIN_ORDER_CODE.
+	 */
+	Rng2oc_t* rng2oc;
+	
+	/**
+	 * Vector of entries.
+	 * This heap structure is laid out on a byte array entry by entry prior to
+	 * disk storage. Therefore,in order to read it back, special offset computing
+	 * routines are needed.	
+	 */
+	//vector<DirEntry_t> entry; 	
+	DirEntry_t* entry;
+	
+	/**
+	 * default constructor
+	 */
+	DiskDirChunk(): hdr(), rng2oc(0), entry(0){}
+	
+	/**
+	 * constructor
+	 */
+	 //DiskDirChunk(const DiskChunkHeader& h): hdr(h), rng2oc(0), entry(0){}
+	
+	 /**
+	  * constructor
+	  */
+	 //DiskDirChunk(const DiskChunkHeader& h, DirEntry_t* ep): hdr(h), rng2oc(0), entry(ep){}
+	
+	 /**
+	  * Destructor. Free up space from the entry array
+	  */
+	~DiskDirChunk() {
+		if(rng2oc) delete [] rng2oc;
+		if(entry) delete [] entry;
+	}
+
+private:
+	//protection from copy constructor
+	DiskDirChunk(const DiskDirChunk& );	
+	
+	//protection from assignment		
+	DiskDirChunk& operator=(const DiskDirChunk& );
+	
+}; // struct DiskDirChunk
+
+struct DiskDataChunk {
+
+	/**
+	 * Define the type of a data chunk entry.
+	 */
+        struct Entry {
+        	//vector<measure_t> measures;
+        	measure_t* measures;
+        	
+        	Entry():measures(0){}
+        	~Entry(){if(measures) delete [] measures;}        	
+        };         	
+	typedef Entry DataEntry_t;
+
+	/**
+	 * The chunk header
+	 */        		        	
+	DiskChunkHeader	hdr;
+	
+	/**
+	 * The number of non-empty cells. I.e. the number of 1's in
+	 * the bitmap.
+	 */
+	 unsigned int no_ace;
+	
+	/**
+	 * This unsigned integer dynamic array will represent the compression bitmap.
+	 * It will be created on the heap from the corresponding bit_vector of class DataChunk
+	 * and then copied to our byte array, prior to disk storage. The total length of this bitmap
+	 * can be found from the DiskChunkHeader.no_entries attribute.
+	 */
+	WORD* bitmap;        		
+	
+	/**
+	 * Vector of entries. Note that this is essentially a vector of vectors.
+	 * This heap structure is laid out on a byte array entry by entry and measure by measure
+	 * prior to disk storage. Therefore,in order to read it back, special offset computing
+	 * routines are needed.	
+	 */	
+	//vector<DataEntry_t> entry;
+	DataEntry_t* entry;
+	
+	/**
+	 * Default constructor
+	 */	
+	DiskDataChunk(): hdr(), bitmap(0), entry(0){}
+	
+	/**
+	 * constructor
+	 */
+	 //DiskDataChunk(const DiskChunkHeader& h): hdr(h), bitmap(0), entry(0){}
+	
+	 /**
+	  * constructor
+	  */
+	  //DiskDataChunk(const DiskChunkHeader& h, unsigned int i, WORD* const bmp, DataEntry_t * const e):
+	  //	 hdr(h), no_ace(i), bitmap(bmp), entry(e){}
+	  	
+	/**
+	 * Destructor
+	 */  	
+	~DiskDataChunk() {
+		if(bitmap) delete [] bitmap;
+		if(entry) delete [] entry;
+	}
+	
+	/**
+	 * Allocate WORDS for storing a bitmap of size n
+	 */
+	 allocBmp(int n) throw(std::bad_alloc){
+	 	try{
+			bitmap = new WORD[numOfWords(n)];
+		}
+		catch(bad_alloc&){
+			throw;	//throw it to some outer level	
+		}
+	}	
+
+	/**
+	 * turn on bit i
+	 */
+        void set_bit(int i)
+        {
+        	WORD MASK = create_mask();
+                bitmap[i>>SHIFT] |= (1<<(i & MASK));
+        }
+		
+	/**
+	 * turn off bit i
+	 */
+	void clear_bit(int i){
+	        WORD MASK = create_mask();
+	        bitmap[i>>SHIFT] &= ~(1<<(i & MASK));
+	}
+				
+	/**
+	 * test bit i. Returns 0 if bit i is 0 and 1 if it is 1.
+	 */
+	int test_bit(int i) const {
+	        WORD MASK = create_mask();
+        	return bitmap[i>>SHIFT] & (1<<(i & MASK));	
+	}
+	
+private:
+	//protection from copy constructor
+	DiskDataChunk(const DiskDataChunk& );	
+	
+	//protection from assignment		
+	DiskDataChunk& operator=(const DiskDataChunk& );
+		
+}; // struct DiskDataChunk
+
+/**
+ * Header of a DiskBucket. Contains info about the physical organization
+ * of a DiskBucket.
+ *
+ * @author Nikos Karayannidis
+ */
+struct DiskBucketHeader{
+	/**
+	 * Define the type of a directory entry in the DiskBucket. This type will
+	 * be used for expressing byte offsets within a DiskBucket
+	 */
+        typedef unsigned int dirent_t;
+
+	/**
+	 * SSM style id of the SSM record where the bucket resides
+	 */
+	BucketID id;
+	
+	/**
+	 * Id of the previous bucket.In order to exploit a "good" bucket
+	 * order different than the one used by the SSM for the records of a file.
+	 * ALSO used for traversing a chain of overflow buckets.
+	 */
+	BucketID previous;
+	
+	/**
+	 * Id of the next bucket.In order to exploit a "good" bucket
+	 * order different than the one used by the SSM for the records of a file.
+	 * ALSO used for traversing a chain of overflow buckets.
+	 */	
+	BucketID next;
+
+	/**
+	 * Total number of chunks in this bucket. Also gives the following info:
+	 * 	- number of entries in the bucket directory
+	 *	- next available index entry (i.e chunk slot in the bucket)
+	 *	- if equals with 1 then this should be a data chunk
+	 */
+	unsigned short no_chunks;
+	
+	/**
+	 * The next available byte offset to store a chunk. 1st byte is at offset 0.
+	 * NOTE: the type of this field should be the same
+	 * as DiskBucket::dirent_t.
+	 */
+	dirent_t next_offset;
+	
+	/**
+	 * Number of free bytes (contiguous space)
+	 */
+	size_t freespace;	
+	
+	/**
+	 * The number of chunk-subtrees stored in this bucket
+	 * (at least 1)
+	 */
+	 char no_subtrees;		
+	
+	 /**
+	  * Maximum no of subtrees in a single bucket
+	  */
+	 //enum {subtreemaxno = 100};
+	 static const unsigned int subtreemaxno = 100;
+	
+	 /**
+	  * Each entry of this array stores the entry in the bucket directory (i.e. chunk slot)
+	  * that points to the first chunk of a subtree. Subtrees are stored
+	  * in this array, in the same order that subtrees are stored in the bucket.
+	  */
+	 unsigned short subtree_dir_entry[subtreemaxno];
+	
+	 /**
+	  * Number of overflow buckets following next in the chain. Normally this
+	  * member is set to 0, denoting no use of overflow buckets. If however we have
+	  * stored a single large data chunk, or the root bucket has overflowed then we
+	  * use chains. If this is the first bucket of 4-member chain then no_ovrfl_next == 3.
+	  */
+	  char no_ovrfl_next;	
+}; //end of DiskBucketHeader
+
+/**
+ * DiskBucket is the structure implementing the Bucket concept. It has a fixed
+ * size that depends from the constant PAGESIZE. At the beginning of a bucket we
+ * store the DiskBucketHeader, then follow the variable-size chunks in the following manner:
+ * {subtree1 dirchunks}{subtree1 datachunks}{subtree2 dirchunks}{subtree2 datachunks}...
+ * Finally, beginning from the end of the bucket space and expanding BACKWARDS (!) lies
+ * the internal chunk directory, which provides the byte offset for each chunk stored
+ * in this bucket. Therefore, the abstraction provided here is that a bucket consists of
+ * several "chunk slots".The location of each slot can be found through the directory.
+ *
+ * @author Nikos Karayannidis
+ */
+
+struct DiskBucket {
+
+        /**
+         * Size of the body of the bucket.
+         */
+        //enum {bodysize = PAGESIZE-sizeof(DiskBucketHeader)-sizeof(DiskBucketHeader::dirent_t*)};
+        static const unsigned int bodysize = PAGESIZE-sizeof(DiskBucketHeader)-sizeof(DiskBucketHeader::dirent_t*);
+
+        /**
+         * Minimum bucket occupancy threshold (in bytes)
+         */
+        static const unsigned int BCKT_THRESHOLD = int(bodysize*0.5);
+
+        /**
+         * The header of the bucket.
+         */
+	DiskBucketHeader hdr; // header
+	
+	/**
+	 * The body of the bucket. I.e. where the chunks and the
+         * directory entries will be stored.
+	 */
+	char body[bodysize];
+	
+	/**
+	 * The bucket directory (grows backwards!).
+	 * (Initialize this directory pointer to point one beyond last byte of body).
+	 * The chunk at slot x (where x = 0 for the 1st chunk) resides at the byte offset:
+	 * offsetInBucket[-x-1]
+	 */
+	DiskBucketHeader::dirent_t* offsetInBucket;	
+}; //end of DiskBucket
+
+#endif //DISK_STRUCTURES_H

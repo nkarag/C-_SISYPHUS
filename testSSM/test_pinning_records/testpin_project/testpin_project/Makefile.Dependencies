@@ -1,0 +1,6 @@
+SsmStartUpThread.o: SsmStartUpThread.C SsmStartUpThread.h \
+ SystemManager.h TestPinClass.h
+SystemManager.o: SystemManager.C SystemManager.h
+TestPinClass.o: TestPinClass.C TestPinClass.h SystemManager.h
+TestPinClass_old.o: TestPinClass_old.C TestPinClass.h SystemManager.h
+testpin.o: testpin.C SsmStartUpThread.h

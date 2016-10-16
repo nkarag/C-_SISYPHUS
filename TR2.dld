@@ -1,0 +1,68 @@
+DIMENSION Location
+
+LEVEL Continent
+MEMBER Europe 0 1
+MEMBER North_America 2 2
+MEMBER Asia 3 4
+
+LEVEL Country
+MEMBER Greece 0 1
+MEMBER UK 2 3
+MEMBER USA 4 6
+MEMBER Japan 7 8
+MEMBER India 9 10
+
+LEVEL Region
+MEMBER Greece-North 0 0
+MEMBER Greece-South 1 2
+MEMBER UK-North 3 3
+MEMBER UK-South 4 5
+MEMBER USA-East 6 7
+MEMBER USA-West 8 9
+MEMBER USA-North 10 10
+MEMBER Kiusiu 11 11
+MEMBER Hondo 12 14
+MEMBER India-East 15 16
+MEMBER India-West 17 18
+
+LEVEL City
+MEMBER Salonica -1 -1
+MEMBER Athens -1 -1
+MEMBER Rhodes -1 -1
+MEMBER Glasgow -1 -1
+MEMBER London -1 -1
+MEMBER Cardiff -1 -1
+MEMBER New_York -1 -1
+MEMBER Boston -1 -1
+MEMBER Los_Angeles -1 -1
+MEMBER San_Francisco -1 -1
+MEMBER Seattle -1 -1
+MEMBER Nagasaki -1 -1
+MEMBER Tokyo -1 -1
+MEMBER Yokohama -1 -1
+MEMBER Kioto -1 -1
+MEMBER Calcutta -1 -1
+MEMBER New_Delhi -1 -1
+MEMBER Karachi -1 -1
+MEMBER Bombay -1 -1
+
+DIMENSION Product
+
+LEVEL Category
+MEMBER Books 0 1
+MEMBER Music 2 2
+
+LEVEL Type
+MEMBER Literature 0 1
+MEMBER Philosophy 2 3
+MEMBER Heavy_Metal 4 5
+
+LEVEL Item
+MEMBER Report_to_El_Greco -1 -1
+MEMBER Karamazof_brothers -1 -1
+MEMBER Zarathustra -1 -1
+MEMBER Symposium -1 -1
+MEMBER Piece_of_Mind -1 -1
+MEMBER Ace_of_Spades -1 -1
+
+ENDOFDIMENSIONS

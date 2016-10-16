@@ -1,0 +1,40 @@
+DIMENSION Dimension1
+
+LEVEL Level1
+MEMBER Member1 m1 mK
+MEMBER Member2 mK+1 mL
+.
+.
+.
+MEMBER MemberN -1 -1
+
+LEVEL Level2
+MEMBER Member1 m1 mK
+MEMBER Member2 mK+1 mL
+.
+.
+.
+MEMBER MemberN -1 -1
+
+.
+.
+.
+
+LEVEL LevelN
+MEMBER Member1 m1 mK
+MEMBER Member2 mK+1 mL
+.
+.
+.
+MEMBER MemberN -1 -1
+
+DIMENSION Dimension2
+.
+.
+.
+
+DIMENSION DimensionF
+.
+.
+.
+ENDOFDIMENSIONS
